@@ -74,6 +74,7 @@ public class BikeForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Kerékpárkölcsönző");
+        setLocation(new java.awt.Point(500, 300));
         getContentPane().setLayout(new java.awt.GridLayout(1, 1));
 
         jPanel1.setLayout(new java.awt.BorderLayout());

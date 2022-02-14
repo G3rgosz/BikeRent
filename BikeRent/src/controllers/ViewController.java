@@ -57,16 +57,21 @@ public class ViewController {
         switch (bikeFrm.getTableTb().getSelectedIndex()) {
             case 0 ->   {
                 tableData = dbCtr.getMembers();
+                tableData.add(null);
                 columnNames = viewMdl.getMemberColumnNames();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 bikeFrm.getMemberTbl().setModel(tableMdl);
             }
             case 1 ->   {
+                tableData = dbCtr.getBikes();
+                tableData.add(null);
                 columnNames = viewMdl.getBikeColumnNames();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 bikeFrm.getBikeTbl().setModel(tableMdl);
             }
             case 2 ->   {
+                tableData = dbCtr.getRents();
+                tableData.add(null);
                 columnNames = viewMdl.getRentColumnNames();
                 TableModel tableMdl = new DefaultTableModel(tableData, columnNames);
                 bikeFrm.getRentTbl().setModel(tableMdl);

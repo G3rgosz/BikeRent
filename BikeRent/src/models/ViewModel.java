@@ -26,10 +26,11 @@ public class ViewModel {
         Vector<String> columnNames = new Vector<>();
         
         columnNames.add( "Stílus" );
+        columnNames.add( "Nem" );
         columnNames.add( "Méret" );
-        columnNames.add( "Márka" );
-        columnNames.add( "Sebesség" );
         columnNames.add( "Fék" );
+        columnNames.add( "Sebesség" );
+        columnNames.add( "Márka" );
         columnNames.add( "Váz szám" );
         
         return columnNames;

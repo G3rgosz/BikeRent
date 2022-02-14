@@ -13,10 +13,10 @@ public class DataBaseController {
     private DatabaseModel dbModel;
     
     public DataBaseController() {
-        setDatabase();
     }
     protected boolean setDatabase(){
         dbModel = new DatabaseModel();
+        dbModel.getConnection();
         if(dbModel.isConnected()){
             return true;
         }else{
@@ -25,7 +25,7 @@ public class DataBaseController {
     }
     public Vector<Vector<Object>> getMembers(){
         Vector<Vector<Object>> members = new Vector<>();
-        ResultSet rs = dbModel.getMember();
+        ResultSet rs = dbModel.getMember("getMembers");
         try {
             while(rs.next()){
                 Vector<Object> member = new Vector<>();
@@ -40,6 +40,44 @@ public class DataBaseController {
             Logger.getLogger(DataBaseController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return members;
+    }
+    public Vector<Vector<Object>> getBikes(){
+        Vector<Vector<Object>> bikes = new Vector<>();
+        ResultSet rs = dbModel.getBike("getBikes");
+        try {
+            while(rs.next()){
+                Vector<Object> bike = new Vector<>();
+                bike.add(rs.getString("type"));
+                bike.add(rs.getString("design"));
+                bike.add(rs.getString("size"));
+                bike.add(rs.getString("brake"));
+                bike.add(rs.getString("speed"));
+                bike.add(rs.getString("brand"));
+                bike.add(rs.getString("code"));
+                bikes.add(bike);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return bikes;
+    }
+    public Vector<Vector<Object>> getRents(){
+        Vector<Vector<Object>> rents = new Vector<>();
+        ResultSet rs = dbModel.getRent("getRents");
+        try {
+            while(rs.next()){
+                Vector<Object> rent = new Vector<>();
+                rent.add(rs.getString("name"));
+                rent.add(rs.getString("code"));
+                rent.add(rs.getString("startdate"));
+                rent.add(rs.getString("enddate"));
+                rent.add(rs.getString("deposit"));
+                rents.add(rent);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DataBaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rents;
     }
     
 }

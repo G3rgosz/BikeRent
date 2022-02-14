@@ -1,6 +1,9 @@
 
 package models;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
@@ -24,10 +27,20 @@ public class DatabaseModel {
         user = "root";
         pass = "";
         conn = null;
-        getConnection();
     }
-    
-    private void getConnection(){
+    private String[] getSql(String fileName){
+        String filePath = "sql/" + fileName + ".sql";
+        String[] sql = null;
+        try {
+            Path path = Path.of(filePath);
+            String content = Files.readString(path);
+            sql = content.split(";");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return sql;
+    }
+    public void getConnection(){
         try {
             //jdbc://localhost:3306/tanar_bikerent
             String url = "jdbc:mysql://" + host + ":" + port + "/" + db;
@@ -43,17 +56,45 @@ public class DatabaseModel {
             return true;
         }
     }
-    public ResultSet getMember(){
+    public ResultSet getMember(String fileName){
         
-        String sql = "SELECT name, email, phone, address, identity FROM renters";
-                     
-        
+        String[] sql = getSql(fileName);
         Statement stmt = null;
         ResultSet rs = null;
         
         try {
             stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);    
+            rs = stmt.executeQuery(sql[0]);    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return rs;
+    }
+    public ResultSet getBike(String fileName){
+        
+        String[] sql = getSql(fileName);
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql[0]);    
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return rs;
+    }
+    public ResultSet getRent(String fileName){
+        
+        String[] sql = getSql(fileName);
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql[0]);    
         } catch (SQLException e) {
             e.printStackTrace();
         }
